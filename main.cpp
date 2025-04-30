@@ -13,6 +13,7 @@ int main(){
     conjunto->insert(7);
     conjunto->insert(0);
     conjunto->insert(3);
+    conjunto->remove(4);
 
 
     int no = 0;

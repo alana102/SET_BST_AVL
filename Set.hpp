@@ -39,19 +39,64 @@ private:
         return 1 + left + right;
     }
 
-    // função que insere um elemento no conjunto
-    Node *insert(Node* node, int key){
+    // função que ajeita os nós em caso de desbalanceamento durante
+    // o processo de remoção de um nó
+    Node *fixup_deletion(Node* node){
+        int bal = balance(node);
 
-        if(node == nullptr){
-            return new Node(key, nullptr, nullptr);
-        } else if (key < node->key) {
-            node->left = insert(node->left, key);
-        } else if (key > node->key) {
-            node->right = insert(node->right, key);
+        if(bal > 1 && balance(node->right) >=0 ){
+            return rotation_left(node);
+        } else if (bal > 1 && balance(node->right) < 0) {
+            node->right = rotation_right(node->right);
+            return rotation_left(node);
+        } else if (bal < -1 && balance(node->left) <= 0) {
+            return rotation_right(node);
+        } else if (bal < -1 && balance(node->left) > 0) {
+            node->left = rotation_left(node->left);
+            return rotation_right(node);
         }
 
-        node = fixupNode(node, key);
+        node->height = 1 + max(height(node->left), height(node->right));
+        return node;
+    }
 
+    // função que remove um elemento do conjunto
+    // se tiver filho direito, chama a função de remover sucessor
+    // se não tiver apenas faz com que o filho esquerdo assuma o lugar do nó
+    // depois disso ajeita o balanceamento do nó
+    Node *remove(Node *node, int key){
+        if (node == nullptr){
+            return nullptr;
+        } else if (key < node->key){
+            remove(node->left, key);
+        } else if (key > node->key) {
+            remove(node->right, key);
+        } else if (node->right == nullptr){
+            Node *filho = node->left;
+            delete node;
+            return filho;
+        } else {
+            node->right = remove_successor(node, node->right);
+        }
+
+        node = fixup_deletion(node);
+        return node;
+
+    }    
+
+    // função chamada em caso de remoção de um nó que possui filho direito
+    // essa função faz com que o nó a ser removido receba a chave de seu sucessor
+    // e logo em seguida o sucessor é liberado
+    Node *remove_successor(Node *root, Node *node) {
+        if(node->left != nullptr){
+            node->left = remove_successor(root, node->left);
+        } else {
+            root->key = node->key;
+            Node *aux = node->right;
+            delete node;
+            return aux;
+        }
+        node = fixup_deletion(node);
         return node;
     }
 
@@ -148,6 +193,22 @@ private:
         
         return p;
 
+    }
+
+    // função que insere um elemento no conjunto
+    Node *insert(Node* node, int key){
+
+        if(node == nullptr){
+            return new Node(key, nullptr, nullptr);
+        } else if (key < node->key) {
+            node->left = insert(node->left, key);
+        } else if (key > node->key) {
+            node->right = insert(node->right, key);
+        }
+
+        node = fixupNode(node, key);
+
+        return node;
     }
 
     // função que escreve o conjunto com seus
@@ -260,6 +321,10 @@ public:
     // função que insere um novo elemento no conjunto
     void insert(int key){
         root = insert(root, key);
+    }
+
+    void remove(int key){
+        root = remove(root, key);
     }
 
     // função pública que retorna tamanho do conjunto
