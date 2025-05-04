@@ -1,3 +1,4 @@
+// Alana Maria Sousa Augusto - 564976
 #ifndef NODE_HPP
 #define NODE_HPP
 #include<iostream>
@@ -17,9 +18,6 @@ struct Node{
         height = 1;
     }
 
-    ~Node(){
-        cout << "No removido: " << this->key << endl;
-    }
 
 };
 

@@ -1,0 +1,31 @@
+    cout << "|***************************************************************************************************|" << endl; -
+    cout << "|COMANDOS DISPONIVEIS:                                                                              |" << endl; -
+    cout << "|***************************************************************************************************|" << endl; -
+    cout << "|sair ----------------------------------------------------------------------------- fecha o programa|" << endl; ok
+    cout << "|criar --------------------------------------------------------------------------- cria o conjunto s|" << endl; ok
+    cout << "|copia i --------------- cria o conjunto s com os mesmos elementos do conjunto da posição i do vetor|" << endl; ok
+    cout << "|troca i j ----------------------- troca os elementos do conjunto i pelos do conjunto j e vice-versa|" << endl; ok
+    cout << "|vazio i ------------------------------------ verfica se o conjunto na posição i do vetor está vazio|" << endl; ok
+    cout << "|mostrar i ------------------------------------------------- mostra o conjunto na posicao i do vetor|" << endl; ok
+    cout << "|listar ------------------------------------------------------ lista os conjuntos que estao no vetor|" << endl; ok
+    cout << "|removerConjunto i ---------------------------------------- remove um conjunto na posicao i do vetor|" << endl; ok
+    cout << "|apagarTudo -------------------------------------------- apaga todas os conjuntos atuais do programa|" << endl; ok
+    cout << "|***************************************************************************************************|" << endl; -
+    cout << "|OPERACOES ENTRE CONJUNTOS:                                                                         |" << endl; -
+    cout << "|***************************************************************************************************|" << endl; -
+    cout << "|uni s r ----------------------------------------- retorna a uniao entre o conjunto s e o conjunto r|" << endl;
+    cout << "|inter s r ---------------------------------- retorna a insersecao entre o conjunto s e o conjunto r|" << endl;
+    cout << "|dif s r ------------------------------------- retorna a diferenca entre o conjunto s e o conjunto r|" << endl;
+    cout << "|***************************************************************************************************|" << endl; -
+    cout << "|MANIPULACAO DE ELEMENTOS:                                                                          |" << endl; -
+    cout << "|***************************************************************************************************|" << endl; -
+    cout << "|limpar i --------------------------------------------------- limpa o conjunto na posicao i do vetor|" << endl; ok
+    cout << "|add i elem --------------------------------- adiciona um elemento no conjunto da posicao i do vetor|" << endl; ok
+    cout << "|remover i elem ---------------------- remove determinado elemento do conjunto da posicao i do vetor|" << endl; ok
+    cout << "|succ elem i ------------------- retorna o sucessor de um elemento no conjunto da posição i do vetor|" << endl; ok
+    cout << "|pred elem i ---------------- retorna o predecessor de um elemento no conjunto da posição i do vetor|" << endl; ok
+    cout << "|pertence elem i ---------------- verifica se um elemento pertence ao conjunto da posição i do vetor|" << endl; ok
+    cout << "|min i ---------------------------------- retorna o menor elemento do conjunto da posição i do vetor|" << endl; ok
+    cout << "|max i ---------------------------------- retorna o maior elemento do conjunto da posição i do vetor|" << endl; ok
+    cout << "|tam i ----------------------------------- retorna a cardinalidade do conjunto da posiçao i do vetor|" << endl; ok
+    cout << "|***************************************************************************************************|" << endl; -

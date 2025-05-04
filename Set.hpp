@@ -1,3 +1,4 @@
+// Alana Maria Sousa Augusto - 564976
 #ifndef SET_HPP
 #define SET_HPP
 #include "Node.hpp"
@@ -274,6 +275,70 @@ private:
         }
     }
 
+    // função auxiliar que copia um nó em outro
+    // auxilia na lógica da sobrecarga do operador de atribuição
+    Node* copiaNo(Node* no){
+        if(no == nullptr){
+            return nullptr;
+        }
+
+        Node* novo_no = new Node(no->key, nullptr, nullptr);
+
+        novo_no->left = copiaNo(no->left);
+        novo_no->right = copiaNo(no->right);
+        novo_no->height = no->height;
+
+        return novo_no;
+    }
+
+    // função auxiliar de uniao entre conjuntos
+    // insere todos os elem dos outros dois conjuntos
+    // no conjunto que chama a função
+    void uniaux(Node* node){
+        if(node == nullptr) return;
+
+        uniaux(node->left);
+        this->insert(node->key);
+        uniaux(node->right);
+    }
+
+    // função auxiliar de interseccao
+    // insere todos os elem que pertencem
+    // aos dois conjuntos simultaneamente
+    // verifica isso utilizando a função contains()
+    void interaux(Node* n1, Set* s2){
+        if(n1 == nullptr){
+            return;
+        }
+
+        interaux(n1->left, s2);
+
+        if(s2->contains(n1->key)){
+            this->insert(n1->key);
+        }
+
+        interaux(n1->right, s2);
+
+    }
+
+    // função auxiliar da diferenca
+    // insere todos os elem que pertencem ao 
+    // conjunto A mas não pertencem ao conjunto B
+    // utiliza a função contains() para fazer essa verificacao
+    void difaux(Node* n1, Set* s2){
+        if(n1 == nullptr){
+            return;
+        }
+
+        difaux(n1->left, s2);
+
+        if(!s2->contains(n1->key)){
+            this->insert(n1->key);
+        }
+
+        difaux(n1->right, s2);
+    }
+
     void bshow(Node *node, std::string heranca) const {
         if(node != nullptr && (node->left != nullptr || node->right != nullptr))
             bshow(node->right , heranca + "r");
@@ -290,6 +355,22 @@ private:
             bshow(node->left, heranca + "l");
     }
 
+    // função auxiliar de busca
+    // veri
+    /*bool buscar(Node* node, int key){
+        if(node == nullptr){
+            return false;
+        }
+
+        if(node->key == key){
+            return true;
+        } else if (key < node->key){
+            return buscar(node->left, key);
+        } else {
+            return buscar(node->right, key);
+        }
+    }*/
+
     
 
 public:
@@ -303,6 +384,29 @@ public:
     Set(){
         root = nullptr;
     }
+
+    // construtor de cópia
+    // cria um conjunto baseado em outro
+    Set(const Set& s) : Set() {
+        *this = s;
+    }
+    
+    // função publica da uniao
+    void uniao(Set* s1, Set* s2){
+        uniaux(s1->root);
+        uniaux(s2->root);
+    }
+
+    // função publica da interseccao
+    void interseccao(Set* s1, Set* s2){
+        interaux(s1->root, s2);
+    }
+
+    // função publica da diferenca
+    void diferenca(Set* s1, Set* s2){
+        difaux(s1->root, s2);
+    }
+
 
     // função que retorna a altura total da árvore
     int total_height(){
@@ -323,8 +427,16 @@ public:
         root = insert(root, key);
     }
 
-    void remove(int key){
+    // função que remove um elemento do conjunto
+    void erase(int key){
         root = remove(root, key);
+    }
+
+    // função que troca os elementos entre dois conjuntos
+    void swap(Set& s){
+        Node *aux = this->root;
+        this->root = s.root;
+        s.root = aux;
     }
 
     // função pública que retorna tamanho do conjunto
@@ -355,7 +467,7 @@ public:
     // função pública que retorna o maior elemento
     int maximum(){
         if(root == nullptr){
-            throw runtime_error("erro: arvore vazia");
+            throw out_of_range("erro: arvore vazia");
         } else {
             return maximum(root)->key;
         }
@@ -364,7 +476,7 @@ public:
     // função pública que retorna o menor elemento
     int minimum(){
         if(root == nullptr){
-            throw runtime_error("erro: arvore vazia");
+            throw out_of_range("erro: arvore vazia");
         } else {
             return minimum(root)->key;
         }
@@ -376,13 +488,13 @@ public:
         Node *no = get(root, key);
 
         if(no==nullptr){
-            throw runtime_error("erro: nó não existe na árvore");
+            throw out_of_range("erro: nó não existe na árvore");
         } 
 
         Node *succ = successor(no);
 
         if(succ == nullptr){
-            throw runtime_error("erro: nó não possui sucessor");
+            throw logic_error("erro: nó não possui sucessor");
         }
 
         return succ->key;
@@ -394,17 +506,38 @@ public:
         Node *no = get(root, key);
 
         if(no==nullptr){
-            throw runtime_error("erro: nó não existe na árvore");
+            throw out_of_range("erro: nó não existe na árvore");
         } 
 
         Node *pre = predecessor(no);
 
         if(pre == nullptr){
-            throw runtime_error("erro: nó não possui predecessor");
+            throw logic_error("erro: nó não possui predecessor");
         }
 
         return pre->key;
     }
+
+    // sobrecarga do operador de atribuição
+    Set& operator=(const Set& s){
+
+        if (this == &s){
+            return *this;
+        }
+
+        this->clear(root);
+
+        this->root = copiaNo(s.root);
+
+        return *this;
+    }
+
+    // função publica que limpa um conjunto
+    // deletando todos os seus elementos
+    void clear(){
+        root = clear(root);
+    }
+
 
     // destrutor
     ~Set(){
