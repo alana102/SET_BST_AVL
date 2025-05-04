@@ -339,45 +339,7 @@ private:
         difaux(n1->right, s2);
     }
 
-    void bshow(Node *node, std::string heranca) const {
-        if(node != nullptr && (node->left != nullptr || node->right != nullptr))
-            bshow(node->right , heranca + "r");
-        for(int i = 0; i < (int) heranca.size() - 1; i++)
-            std::cout << (heranca[i] != heranca[i + 1] ? "│   " : "    ");
-        if(heranca != "")
-            std::cout << (heranca.back() == 'r' ? "┌───" : "└───");
-        if(node == nullptr){
-            std::cout << "#" << std::endl;
-            return;
-        }
-        std::cout << node->key << std::endl;
-        if(node != nullptr && (node->left != nullptr || node->right != nullptr))
-            bshow(node->left, heranca + "l");
-    }
-
-    // função auxiliar de busca
-    // veri
-    /*bool buscar(Node* node, int key){
-        if(node == nullptr){
-            return false;
-        }
-
-        if(node->key == key){
-            return true;
-        } else if (key < node->key){
-            return buscar(node->left, key);
-        } else {
-            return buscar(node->right, key);
-        }
-    }*/
-
-    
-
 public:
-
-    void show() {
-        bshow(root, "");
-    }
 
     // construtor vazio
     // cria um conjunto vazio
