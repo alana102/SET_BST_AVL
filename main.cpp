@@ -28,33 +28,33 @@ void mostrarAjuda(){
     cout << "|***************************************************************************************************|" << endl;
     cout << "|COMANDOS DISPONIVEIS:                                                                              |" << endl;
     cout << "|***************************************************************************************************|" << endl;
-    cout << "|sair ----------------------------------------------------------------------------- fecha o programa|" << endl;
-    cout << "|criar --------------------------------------------------------------------------- cria o conjunto s|" << endl;
-    cout << "|copia i ---------------- cria um conjunto com os mesmos elementos do conjunto da posicao i do vetor|" << endl;
-    cout << "|troca i j ----------------------- troca os elementos do conjunto i pelos do conjunto j e vice-versa|" << endl;
-    cout << "|vazio i ------------------------------------ verfica se o conjunto na posicao i do vetor esta vazio|" << endl;
-    cout << "|mostrar i ------------------------------------------------- mostra o conjunto na posicao i do vetor|" << endl;
-    cout << "|listar ------------------------------------------------------ lista os conjuntos que estao no vetor|" << endl;
-    cout << "|removerConjunto i ---------------------------------------- remove um conjunto na posicao i do vetor|" << endl;
-    cout << "|apagarTudo -------------------------------------------- apaga todas os conjuntos atuais do programa|" << endl;
+    cout << "|sair ............................................................................. fecha o programa|" << endl;
+    cout << "|criar ..................................... cria um conjunto vazio e armazena na lista de conjuntos|" << endl;
+    cout << "|copia i ................ cria um conjunto com os mesmos elementos do conjunto da posicao i do vetor|" << endl;
+    cout << "|troca i j ....................... troca os elementos do conjunto i pelos do conjunto j e vice-versa|" << endl;
+    cout << "|vazio i .................................... verfica se o conjunto na posicao i do vetor esta vazio|" << endl;
+    cout << "|mostrar i ................................................. mostra o conjunto na posicao i do vetor|" << endl;
+    cout << "|listar ...................................................... lista os conjuntos que estao no vetor|" << endl;
+    cout << "|removerConjunto i ........................................ remove um conjunto na posicao i do vetor|" << endl;
+    cout << "|apagarTudo ............................................ apaga todas os conjuntos atuais do programa|" << endl;
     cout << "|***************************************************************************************************|" << endl;
     cout << "|OPERACOES ENTRE CONJUNTOS:                                                                         |" << endl;
     cout << "|***************************************************************************************************|" << endl;
-    cout << "|uni s r ----------------------------------------- retorna a uniao entre o conjunto s e o conjunto r|" << endl;
-    cout << "|inter s r ---------------------------------- retorna a insersecao entre o conjunto s e o conjunto r|" << endl;
-    cout << "|dif s r ------------------------------------- retorna a diferenca entre o conjunto s e o conjunto r|" << endl;
+    cout << "|uni i j ......................................... retorna a uniao entre o conjunto i e o conjunto j|" << endl;
+    cout << "|inter i j .................................. retorna a insersecao entre o conjunto i e o conjunto j|" << endl;
+    cout << "|dif i j ..................................... retorna a diferenca entre o conjunto i e o conjunto j|" << endl;
     cout << "|***************************************************************************************************|" << endl;
     cout << "|MANIPULACAO DE ELEMENTOS:                                                                          |" << endl;
     cout << "|***************************************************************************************************|" << endl;
-    cout << "|limpar i --------------------------------------------------- limpa o conjunto na posicao i do vetor|" << endl;
-    cout << "|add i elem --------------------------------- adiciona um elemento no conjunto da posicao i do vetor|" << endl;
-    cout << "|remover i elem ---------------------- remove determinado elemento do conjunto da posicao i do vetor|" << endl;
-    cout << "|succ elem i ------------------- retorna o sucessor de um elemento no conjunto da posicao i do vetor|" << endl;
-    cout << "|pred elem i ---------------- retorna o predecessor de um elemento no conjunto da posicao i do vetor|" << endl;
-    cout << "|pertence elem i ---------------- verifica se um elemento pertence ao conjunto da posicao i do vetor|" << endl;
-    cout << "|min i ---------------------------------- retorna o menor elemento do conjunto da posicao i do vetor|" << endl;
-    cout << "|max i ---------------------------------- retorna o maior elemento do conjunto da posicao i do vetor|" << endl;
-    cout << "|tam i ----------------------------------------- retorna o tamanho do conjunto da posicao i do vetor|" << endl;
+    cout << "|limpar i ................................................... limpa o conjunto na posicao i do vetor|" << endl;
+    cout << "|add i elem ................................. adiciona um elemento no conjunto da posicao i do vetor|" << endl;
+    cout << "|remover i elem ...................... remove determinado elemento do conjunto da posicao i do vetor|" << endl;
+    cout << "|succ elem i ................... retorna o sucessor de um elemento no conjunto da posicao i do vetor|" << endl;
+    cout << "|pred elem i ................ retorna o predecessor de um elemento no conjunto da posicao i do vetor|" << endl;
+    cout << "|pertence elem i ................ verifica se um elemento pertence ao conjunto da posicao i do vetor|" << endl;
+    cout << "|min i .................................. retorna o menor elemento do conjunto da posicao i do vetor|" << endl;
+    cout << "|max i .................................. retorna o maior elemento do conjunto da posicao i do vetor|" << endl;
+    cout << "|tam i ......................................... retorna o tamanho do conjunto da posicao i do vetor|" << endl;
     cout << "|***************************************************************************************************|" << endl;
 }
 
@@ -146,7 +146,7 @@ int main(){
                 } else if(i == 0 || i < listaSet.size()){
                     Set *newSet = new Set(*listaSet[i]);
                     listaSet.push_back(newSet);
-                    cout << "conjunto " << listaSet.size() - 1 << " foi criado com sucesso" << endl;
+                    cout << "conjunto " << listaSet.size() - 1 << " foi criado com sucesso com os mesmos elementos do conjunto " << i << endl;
                     continue;
                 } else {
                     cout << "o conjunto que voce quer copiar nao existe na lista de conjuntos" << endl;
@@ -208,7 +208,7 @@ int main(){
                         cout << "o conjunto " << i << " esta vazio." << endl;
                         continue;
                     } else {
-                        cout << "o conjunto " << i << " nao esta vazio." << endl;
+                        cout << "o conjunto " << i << " NAO esta vazio." << endl;
                         continue;
                     }
                 } else {
@@ -274,10 +274,8 @@ int main(){
                 if((comando[1].find(".") != string::npos || comando[1].find(",") != string::npos)){
                     throw invalid_argument("valor int nao inserido");
                 }
-
-             
+           
                 size_t i = stoi(comando[1]);
-
                 
                 if(listaSet.empty()){
                     cout << "nao ha conjuntos na lista para serem removidas." << endl;
