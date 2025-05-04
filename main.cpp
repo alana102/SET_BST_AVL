@@ -724,7 +724,8 @@ int main(){
 
         cout <<  "comando invalido. Cheque 'ajuda' para ver os comandos disponiveis" << endl;
 
-
     }
+
+    return 0;
 
 }
